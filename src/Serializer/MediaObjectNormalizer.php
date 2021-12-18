@@ -3,6 +3,7 @@
 
 namespace App\Serializer;
 
+use App\Controller\MailController;
 use App\Entity\Etudiant;
 use App\Entity\MediaObject;
 use App\Repository\EtudiantRepository;
@@ -37,11 +38,21 @@ final class MediaObjectNormalizer implements ContextAwareNormalizerInterface, No
         $context[self::ALREADY_CALLED] = true;
 
         $object->contentUrl = $this->storage->resolveUri($object, 'file');
-
         $etudiant = $this->etudiantRepository->findOneBy([],['id' => 'desc']);
-        $etudiant->setPhoto($object->contentUrl);
-        $this->manager->flush($etudiant);
 
+        if(strpos($object->filePath, 'bac') !== false )
+        {
+        $etudiant->setBacBenef($object->contentUrl);
+        }else if(strpos($object->filePath, 'cni') !== false )
+        {
+            $etudiant->setCni($object->contentUrl);
+        }
+        else
+        {
+            $etudiant->setPhoto($object->contentUrl);
+        }
+        $etudiant->setMatricule(mt_rand(0,9999999999));
+        $this->manager->flush($etudiant);
         return $this->normalizer->normalize($object, $format, $context);
     }
 

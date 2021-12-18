@@ -19,7 +19,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ApiResource(
     iri: 'http://schema.org/MediaObject',
     normalizationContext: ['groups' => ['media_object:read']],
-    itemOperations: ['get'],
+    itemOperations: ['get','delete'],
     collectionOperations: [
         'get',
         'post' => [

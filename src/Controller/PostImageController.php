@@ -21,6 +21,7 @@ class PostImageController
         $mediaObject->file = $uploadedFile;
 
         return $mediaObject;
+        
     }
  }
 

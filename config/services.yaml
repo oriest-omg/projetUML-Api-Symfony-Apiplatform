@@ -23,9 +23,6 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    # App\Events\postImageSubscribe:
-    #     tags:
-    #     - {
-    #         name: kernel.event_listener,
-    #         event: kernel.view
-    #         }
+    App\Events\EmailSubscriber:
+        tags:
+        - {name: kernel.event_listener,event: kernel.view}
